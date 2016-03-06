@@ -1,0 +1,27 @@
+{
+  "name": "Great App Name",
+  "description": "Pithy description (132 characters or less, no HTML)",
+  "version": "0.0.0.1",
+  "manifest_version": 2,
+
+  "permissions": [
+    "https://www.github.com/",
+    "http://www.example.com/",
+    "tabs",
+    "<all_urls>"
+  ],
+  "content_scripts": [
+        {
+        "matches": [
+            "https://github.com/*"
+            ],
+        "js": ["jquery.min.js","github.js"],
+        "css": ["issue.css"],
+        "run_at": "document_end"         // pay attention to this line
+        }
+    ],
+  "icons" : {
+    "48" : "img/checkmark48.png",
+    "128" : "img/checkmark128.png"
+  }
+}
