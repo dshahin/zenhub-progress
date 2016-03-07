@@ -1,3 +1,4 @@
+(function(){
 "use strict";
 //document.body.style.background = 'yellow';
 
@@ -14,14 +15,11 @@ $(document).on('DOMNodeInserted',function(e){
                 $issueList.children('li.zh-pipeline-issue')
                     .each(function(){
                         var $issue = $(this),
-                            $card = $issue.children('div.zh-issuecard-container'),
-                            $main = $card.children('div.zh-issuecard-main'),
-                            $meta = $card.children('div.zh-issuecard-meta');
+                            $card = $issue.children('div.zh-issuecard-container');
+                            // $main = $card.children('div.zh-issuecard-main');
+                            // $meta = $card.children('div.zh-issuecard-meta');
 
-
-
-                            var
-                                max = 10,
+                            var max = 10,
                                 min = 0,
                                 totalTasks = Math.floor(Math.random() * (max - min + 1) + min),
                                 completeTasks = Math.floor(Math.random() * (totalTasks - min + 1) + min);
@@ -56,3 +54,4 @@ $(document).on('DOMNodeInserted',function(e){
             });
     }
 });
+})();
