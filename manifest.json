@@ -1,13 +1,13 @@
 {
-  "name": "Great App Name",
-  "description": "Pithy description (132 characters or less, no HTML)",
+  "name": "Zenhub Progress",
+  "description": "Add progress bars to Zenhub tabs",
   "version": "0.0.0.1",
   "manifest_version": 2,
 
   "permissions": [
     "https://www.github.com/",
-    "http://www.example.com/",
     "tabs",
+    "storage",
     "<all_urls>"
   ],
   "content_scripts": [
@@ -23,5 +23,14 @@
   "icons" : {
     "48" : "img/checkmark48.png",
     "128" : "img/checkmark128.png"
+  },
+  "options_ui": {
+    // Required.
+    "page": "options.html",
+    // Recommended.
+    "chrome_style": true,
+    // Not recommended; only provided for backwards compatibility,
+    // and will be unsupported in a future version of Chrome (TBD).
+    "open_in_tab": false
   }
 }
