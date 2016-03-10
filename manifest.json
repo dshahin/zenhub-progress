@@ -6,9 +6,7 @@
 
     "permissions": [
         "https://www.github.com/",
-        "tabs",
-        "storage",
-        "<all_urls>"
+        "storage"
     ],
     "content_scripts": [{
         "matches": [
