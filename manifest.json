@@ -1,7 +1,7 @@
 {
     "name": "Zenhub Progress",
     "description": "Add progress bars to Zenhub tabs",
-    "version": "0.0.0.2",
+    "version": "0.0.0.3",
     "manifest_version": 2,
 
     "permissions": [
