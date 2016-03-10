@@ -4,7 +4,7 @@ $(document).ready(function(){
 		console.log('hey now');
 		var token = document.getElementById('token').value;
 
-		chrome.storage.sync.set({
+		chrome.storage.local.set({
 		    token: token,
 		    foo: 'bar'
 		  }, function() {

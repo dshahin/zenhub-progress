@@ -1,36 +1,30 @@
 {
-  "name": "Zenhub Progress",
-  "description": "Add progress bars to Zenhub tabs",
-  "version": "0.0.0.1",
-  "manifest_version": 2,
+    "name": "Zenhub Progress",
+    "description": "Add progress bars to Zenhub tabs",
+    "version": "0.0.0.2",
+    "manifest_version": 2,
 
-  "permissions": [
-    "https://www.github.com/",
-    "tabs",
-    "storage",
-    "<all_urls>"
-  ],
-  "content_scripts": [
-        {
+    "permissions": [
+        "https://www.github.com/",
+        "tabs",
+        "storage",
+        "<all_urls>"
+    ],
+    "content_scripts": [{
         "matches": [
             "https://github.com/*"
-            ],
-        "js": ["jquery.min.js","github.bundle.min.js","github.js"],
+        ],
+        "js": ["jquery.min.js", "github.bundle.min.js", "github.js"],
         "css": ["issue.css"],
-        "run_at": "document_end"         // pay attention to this line
-        }
-    ],
-  "icons" : {
-    "48" : "img/checkmark48.png",
-    "128" : "img/checkmark128.png"
-  },
-  "options_ui": {
-    // Required.
-    "page": "options.html",
-    // Recommended.
-    "chrome_style": true,
-    // Not recommended; only provided for backwards compatibility,
-    // and will be unsupported in a future version of Chrome (TBD).
-    "open_in_tab": false
-  }
+        "run_at": "document_end"
+    }],
+    "icons": {
+        "48": "img/checkmark48.png",
+        "128": "img/checkmark128.png"
+    },
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true,
+        "open_in_tab": false
+    }
 }

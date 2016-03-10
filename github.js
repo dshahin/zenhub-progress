@@ -9,7 +9,7 @@
 
     function init() {
         // Use default value color = 'red' and likesColor = true.
-        chrome.storage.sync.get('token', function(storedSettings) {
+        chrome.storage.local.get('token', function(storedSettings) {
 
             settings = storedSettings;
             console.log('settings', settings);
