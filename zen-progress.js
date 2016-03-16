@@ -12,7 +12,7 @@
         chrome.storage.local.get('token', function(storedSettings) {
 
             settings = storedSettings;
-            console.log('settings', settings);
+            //console.log('settings', settings);
             var github = new Github({
                 token: settings.token,
                 auth: "oauth"
@@ -48,7 +48,8 @@
     }
 
     function processPipeline(e) {
-        var $element = $(e.target);
+        init();
+        var $element = $(e);
         //console.log(e.target);
         if ($element.hasClass('zh-pipeline')) {
             var $pipeline = $element;
@@ -73,6 +74,8 @@
 
                             var issue = issueByNumber[issueNumber];
 
+
+
                             if (issue) {
                                 var body = issue.body;
 
@@ -95,17 +98,24 @@
 
                                     label = $('<label/>').html(completeTasks + '/' + totalTasks + ' (' + percentage + '%)'),
 
-                                    span = $('<span/>')
-                                    .addClass('zh-issue-progress')
+                                    span = $('<span class="meter"/>')
+                                    //.addClass('zh-issue-progress')
                                     .css({ width: percentage + '%' });
 
+                                    
                                 if (totalTasks > 0) {
 
+                                    $card.children('.zh-issue-progress').remove();
+
                                     $card.append($progress);
+
+
 
                                     $progress.append($meter);
 
                                     $progress.append(label);
+
+
 
                                     $meter.append(span);
                                 }
@@ -116,18 +126,32 @@
                 });
         }
     }
+
+
     $(document).on('DOMNodeInserted', function(e) {
 
         var $element = $(e.target);
         if ($element.hasClass('zh-pipeline')) {
-            processPipeline(e);
+            processPipeline(e.target);
         } else if ($element.hasClass('zh-pipeline-issue')) {
-            console.log('just an issue');
-            $('.zh-pipeline').each(function() {
-                var $pipe = $(this);
-                console.log('pipe', $pipe);
-                processPipeline($pipe.get());
-            });
+            var $pipe = $element.parent().parent().parent();
+            processPipeline($pipe);
+            
         }
+    });
+
+    $(document).on('click','.zh-issueviewer-close-btn', function(){
+        console.log('closed issue modal');
+
+
+                $('.zh-pipeline-issue').each(function() {
+                    var $pipe = $(this);
+                    console.log('closed issue', $pipe);
+                    //$pipe.hide();
+                    //$pipe.trigger('DOMNodeInserted');
+                });
+
+
+
     });
 })();

@@ -1,7 +1,7 @@
 {
     "name": "Zenhub Progress",
     "description": "Add progress bars to Zenhub tabs",
-    "version": "0.0.0.3",
+    "version": "0.0.0.4",
     "manifest_version": 2,
 
     "permissions": [
@@ -12,7 +12,7 @@
         "matches": [
             "https://github.com/*"
         ],
-        "js": ["jquery.min.js", "github.bundle.min.js", "github.js"],
+        "js": ["jquery.min.js", "github.bundle.min.js", "zen-progress.js"],
         "css": ["issue.css"],
         "run_at": "document_end"
     }],
