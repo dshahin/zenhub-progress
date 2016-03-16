@@ -48,10 +48,11 @@
     }
 
     function processPipeline(e) {
-        init();
+        
         var $element = $(e);
         //console.log(e.target);
         if ($element.hasClass('zh-pipeline')) {
+            init();
             var $pipeline = $element;
             var $wrapper = $pipeline.children('div.zh-pipeline-issues-wrapper');
 
@@ -127,9 +128,8 @@
         }
     }
 
-
     $(document).on('DOMNodeInserted', function(e) {
-
+        
         var $element = $(e.target);
         if ($element.hasClass('zh-pipeline')) {
             processPipeline(e.target);
@@ -143,15 +143,12 @@
     $(document).on('click','.zh-issueviewer-close-btn', function(){
         console.log('closed issue modal');
 
-
-                $('.zh-pipeline-issue').each(function() {
-                    var $pipe = $(this);
-                    console.log('closed issue', $pipe);
-                    //$pipe.hide();
-                    //$pipe.trigger('DOMNodeInserted');
-                });
-
-
+            $('.zh-pipeline').each(function() {
+                var $pipe = $(this);
+                console.log('closed issue', $pipe);
+                //$pipe.hide();
+                processPipeline($pipe);
+            });
 
     });
 })();
