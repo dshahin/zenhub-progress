@@ -168,7 +168,7 @@
                     //$pipe.hide();
                     processPipeline($pipe);
                 });
-            }, 500 );
+            }, 1000 );
                 
         });
             
