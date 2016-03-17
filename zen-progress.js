@@ -9,42 +9,48 @@
 
     function init() {
         // Use default value color = 'red' and likesColor = true.
-        chrome.storage.local.get('token', function(storedSettings) {
+        return new Promise(function(resolve,reject ){
+            chrome.storage.local.get('token', function(storedSettings) {
 
-            settings = storedSettings;
-            //console.log('settings', settings);
-            var github = new Github({
-                token: settings.token,
-                auth: "oauth"
+                settings = storedSettings;
+                //console.log('settings', settings);
+                var github = new Github({
+                    token: settings.token,
+                    auth: "oauth"
+                });
+
+                console.log(window.location.pathname);
+
+                var pathParts = window.location.pathname.split('/'),
+                    username = pathParts[1],
+                    repo = pathParts[2];
+
+                function indexIssues() {
+                    var issues = github.getIssues(username, repo);
+
+                    issues.list({}, function(err, issues) {
+                        if (err) {
+                            console.error(err);
+                        } else {
+
+                            for (var i = 0; i < issues.length; i++) {
+                                var issue = issues[i];
+                                issueByNumber[issue.number] = issue;
+                            }
+                        }
+
+                    });
+                }
+
+                indexIssues();
+
+                resolve(issueByNumber);
+
+
             });
 
-            console.log(window.location.pathname);
-
-            var pathParts = window.location.pathname.split('/'),
-                username = pathParts[1],
-                repo = pathParts[2];
-
-            function indexIssues() {
-                var issues = github.getIssues(username, repo);
-
-                issues.list({}, function(err, issues) {
-                    if (err) {
-                        console.error(err);
-                    } else {
-
-                        for (var i = 0; i < issues.length; i++) {
-                            var issue = issues[i];
-                            issueByNumber[issue.number] = issue;
-                        }
-                    }
-
-                });
-            }
-
-            indexIssues();
-
-
         });
+            
     }
 
     function processPipeline(e) {
@@ -52,7 +58,8 @@
         var $element = $(e);
         //console.log(e.target);
         if ($element.hasClass('zh-pipeline')) {
-            init();
+
+            
             var $pipeline = $element;
             var $wrapper = $pipeline.children('div.zh-pipeline-issues-wrapper');
 
@@ -87,10 +94,6 @@
 
                                     min = 0,
 
-                                    //totalTasks = Math.floor(Math.random() * (max - min + 1) + min),
-
-                                    //completeTasks = Math.floor(Math.random() * (totalTasks - min + 1) + min),
-
                                     percentage = ((completeTasks / totalTasks) * 100).toFixed(0),
 
                                     $progress = $('<div/>').addClass('zh-issue-progress'),
@@ -100,7 +103,7 @@
                                     label = $('<label/>').html(completeTasks + '/' + totalTasks + ' (' + percentage + '%)'),
 
                                     span = $('<span class="meter"/>')
-                                    //.addClass('zh-issue-progress')
+
                                     .css({ width: percentage + '%' });
 
                                     
@@ -128,8 +131,8 @@
         }
     }
 
-    $(document).on('DOMNodeInserted', function(e) {
-        
+    $('body').on('DOMNodeInserted', function(e) {
+            
         var $element = $(e.target);
         if ($element.hasClass('zh-pipeline')) {
             processPipeline(e.target);
@@ -140,15 +143,36 @@
         }
     });
 
-    $(document).on('click','.zh-issueviewer-close-btn', function(){
-        console.log('closed issue modal');
-
-            $('.zh-pipeline').each(function() {
-                var $pipe = $(this);
-                console.log('closed issue', $pipe);
-                //$pipe.hide();
-                processPipeline($pipe);
-            });
+    $('body').on('click','.zh-issueviewer-close-btn', function(){
+        onIssueModalClose(); 
 
     });
+
+    $('body').on('mousedown','.zh-board-issue-view-overlay', function(e){
+        var $element = $(e.target);
+        if($element.hasClass('zh-board-issue-view-overlay')){
+            onIssueModalClose();
+        }
+
+    });
+
+    function onIssueModalClose(){
+        console.log('issue closing');
+        init().then(function(issueByNumberHash){
+            console.log('issueByNumber',issueByNumber);
+            //issueByNumber = issueByNumberHash;
+            //console.log('issueByNumberNEw',issueByNumber);
+            setTimeout(function(){
+                $('ul.zh-board-pipelines>li.zh-pipeline').each(function() {
+                    var $pipe = $(this);
+                    console.log('closed issue', $pipe);
+                    //$pipe.hide();
+                    processPipeline($pipe);
+                });
+            }, 500);
+                
+        });
+            
+    }
+
 })();
