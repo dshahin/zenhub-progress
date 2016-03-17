@@ -1,7 +1,7 @@
 {
     "name": "Zenhub Progress",
     "description": "Add progress bars to Zenhub cards",
-    "version": "0.0.0.6",
+    "version": "0.0.0.7",
     "manifest_version": 2,
 
     "permissions": [
