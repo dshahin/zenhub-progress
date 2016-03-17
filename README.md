@@ -1,5 +1,6 @@
 # zenhub-progress
-chrome extension to add progress bars to zenhub issue board
+[Install the Chrome extension](https://chrome.google.com/webstore/detail/zenhub-progress/lfnkdppnjfgmijhngildbabcnpnbcfjc?authuser=1) to add progress bars to zenhub issue board cards.
+
 ![screen shot 2016-03-09 at 4 46 00 pm](https://cloud.githubusercontent.com/assets/933826/13655752/b319a018-e616-11e5-93e1-de0432a63195.png)
 
 To use on private repos, generate a personal access token in github and add it using the extension option interface.  Token will be stored in localstorage.
