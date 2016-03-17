@@ -137,8 +137,10 @@
         if ($element.hasClass('zh-pipeline')) {
             processPipeline(e.target);
         } else if ($element.hasClass('zh-pipeline-issue')) {
-            var $pipe = $element.parent().parent().parent();
-            processPipeline($pipe);
+            init().then(function(){
+                var $pipe = $element.parent().parent().parent();
+                processPipeline($pipe);
+            });
             
         }
     });
@@ -158,10 +160,7 @@
 
     function onIssueModalClose(){
         console.log('issue closing');
-        init().then(function(issueByNumberHash){
-            console.log('issueByNumber',issueByNumber);
-            //issueByNumber = issueByNumberHash;
-            //console.log('issueByNumberNEw',issueByNumber);
+        init().then(function(){
             setTimeout(function(){
                 $('ul.zh-board-pipelines>li.zh-pipeline').each(function() {
                     var $pipe = $(this);
@@ -169,7 +168,7 @@
                     //$pipe.hide();
                     processPipeline($pipe);
                 });
-            }, 500);
+            }, 500 );
                 
         });
             
